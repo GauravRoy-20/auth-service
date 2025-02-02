@@ -1,6 +1,3 @@
-function welcome(name: string) {
-    //   console.log(`welcome ${name} to fullstack engineering course`);
-    return `welcome ${name} to fullstack engineering course`;
-}
+import { Config } from './config'
 
-welcome("Gaurav");
+console.log(Config.PORT, Config.NODE_ENV)
