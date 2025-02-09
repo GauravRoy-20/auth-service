@@ -62,6 +62,7 @@ describe('POST /auth/register', () => {
             // act
 
             // const response =
+
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             await request(app).post('/auth/register').send(userData)
 
