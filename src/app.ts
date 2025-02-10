@@ -5,17 +5,14 @@ import logger from './config/logger'
 import authRouter from './routes/auth'
 
 const app = express()
+app.use(express.json())
 
 app.get('/', (req, res) => {
-    // const err = createHttpError(401, 'You cannot access this route')
-    // next(err)
-    // throw err
     res.send('Welcome to Auth service')
 })
 
 app.use('/auth', authRouter)
 
-// global error handler
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
     logger.error(err.message)
