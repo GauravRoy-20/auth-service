@@ -85,6 +85,7 @@ describe('POST /auth/register', () => {
             await request(app).post('/auth/register').send(userData)
 
             // assert
+
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users).toHaveLength(1)
@@ -111,6 +112,7 @@ describe('POST /auth/register', () => {
             await request(app).post('/auth/register').send(userData)
 
             // assert
+
             const userRepository = connection.getRepository(User)
             const users = await userRepository.find()
             expect(users[0]).toHaveProperty('role')
@@ -132,6 +134,7 @@ describe('POST /auth/register', () => {
             await request(app).post('/auth/register').send(userData)
 
             // assert
+
             const userRepository = connection.getRepository(User)
             const user = await userRepository.find()
             expect(user[0].password).not.toBe(userData.password)
@@ -161,9 +164,35 @@ describe('POST /auth/register', () => {
             const users = await userRepository.find()
 
             // assert
+
             expect(response.statusCode).toBe(400)
             expect(users).toHaveLength(1)
         })
     })
-    describe('Fields are missing', () => {})
+    describe('Fields are missing', () => {
+        it('should return 400 status code if email field is missing', async () => {
+            // arrange
+
+            const userData = {
+                firstName: 'Gaurav',
+                lastName: 'Roy',
+                email: '',
+                password: 'test@123',
+            }
+
+            // act
+
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // assert
+
+            expect(response.statusCode).toBe(400)
+            const userRepository = connection.getRepository(User)
+            const users = await userRepository.find()
+            expect(users).toHaveLength(0)
+        })
+    })
 })
