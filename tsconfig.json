@@ -112,5 +112,5 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true
     },
-    "include": ["src/**/*", "eslint.config.mjs"]
+    "include": ["src/**/*", "eslint.config.mjs", "scripts/**/*.mjs"]
 }
