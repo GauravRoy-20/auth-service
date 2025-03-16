@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm'
 import { AppDataSource } from '../../config/data-source'
 import { Roles } from '../../constants'
 import { isJWT } from '../../utils'
+import { RefreshToken } from '../../entity/RefreshToken'
 
 describe('POST /auth/register', () => {
     let connection: DataSource
@@ -210,6 +211,36 @@ describe('POST /auth/register', () => {
             expect(isJWT(accessToken)).toBeTruthy()
             expect(refreshToken).not.toBeNull()
             expect(isJWT(refreshToken)).toBeTruthy()
+        })
+        it('should return the access token and refresh token inside a cookie', async () => {
+            // arrange
+
+            const userData = {
+                firstName: 'Gaurav',
+                lastName: 'Roy',
+                email: 'gaurav@mail.com',
+                password: 'test@123',
+            }
+
+            // act
+
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData)
+
+            // assert
+
+            const refreshTokenRepo = connection.getRepository(RefreshToken)
+            // const refreshTokens = await refreshTokenRepo.find()
+            // expect(refreshTokens).toHaveLength(1)
+            const tokens = await refreshTokenRepo
+                .createQueryBuilder('refreshToken')
+                .where('refreshToken.userId = :userId', {
+                    userId: (response.body as Record<string, string>).id,
+                })
+                .getMany()
+            expect(tokens).toHaveLength(1)
         })
     })
     describe('Fields are missing', () => {
