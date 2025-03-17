@@ -1,10 +1,10 @@
-import { NextFunction, Response } from 'express'
-import { JwtPayload } from 'jsonwebtoken'
-import { RegisterUserRequest } from '../types'
-import { UserService } from '../services/UserService'
-import { Logger } from 'winston'
-import { validationResult } from 'express-validator'
-import { TokenService } from '../services/TokenService'
+import { NextFunction, Response } from "express"
+import { JwtPayload } from "jsonwebtoken"
+import { RegisterUserRequest } from "../types"
+import { UserService } from "../services/UserService"
+import { Logger } from "winston"
+import { validationResult } from "express-validator"
+import { TokenService } from "../services/TokenService"
 
 export class AuthController {
     constructor(
@@ -25,11 +25,11 @@ export class AuthController {
 
         const { firstName, lastName, email, password } = req.body
 
-        this.logger.debug('New request to register a user', {
+        this.logger.debug("New request to register a user", {
             firstName,
             lastName,
             email,
-            password: '******',
+            password: "******",
         })
         try {
             const user = await this.userService.create({
@@ -38,7 +38,7 @@ export class AuthController {
                 email,
                 password,
             })
-            this.logger.info('User has been registered', { id: user.id })
+            this.logger.info("User has been registered", { id: user.id })
 
             const payload: JwtPayload = {
                 sub: String(user.id),
@@ -55,15 +55,15 @@ export class AuthController {
                 id: String(newRefreshToken.id),
             })
 
-            res.cookie('accessToken', accessToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
+            res.cookie("accessToken", accessToken, {
+                domain: "localhost",
+                sameSite: "strict",
                 maxAge: 1000 * 60 * 60 * 24, // 1h
                 httpOnly: true,
             })
-            res.cookie('refreshToken', refreshToken, {
-                domain: 'localhost',
-                sameSite: 'strict',
+            res.cookie("refreshToken", refreshToken, {
+                domain: "localhost",
+                sameSite: "strict",
                 maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
                 httpOnly: true,
             })

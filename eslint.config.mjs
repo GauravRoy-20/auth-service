@@ -1,5 +1,5 @@
-import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import eslint from "@eslint/js"
+import tseslint from "typescript-eslint"
 
 export default [
     // Base ESLint recommended configuration
@@ -10,11 +10,11 @@ export default [
 
     {
         ignores: [
-            'dist',
-            'node_modules',
-            'eslint.config.mjs',
-            'jest.config.js',
-            'scripts/**/*.mjs', // Ensure you are not ignoring your .mjs files
+            "dist",
+            "node_modules",
+            "eslint.config.mjs",
+            "jest.config.js",
+            "scripts/**/*.mjs", // Ensure you are not ignoring your .mjs files
         ],
     },
 
@@ -34,13 +34,13 @@ export default [
 
     // ESLint configuration for handling .mjs files
     {
-        files: ['scripts/**/*.mjs'], // Apply settings to .mjs files
-        parser: '@babel/eslint-parser', // Use Babel parser for .mjs files
+        files: ["scripts/**/*.mjs"], // Apply settings to .mjs files
+        parser: "@babel/eslint-parser", // Use Babel parser for .mjs files
         parserOptions: {
-            sourceType: 'module', // Specify that the files are ES modules
-            ecmaVersion: 'latest', // Use the latest ECMAScript features
+            sourceType: "module", // Specify that the files are ES modules
+            ecmaVersion: "latest", // Use the latest ECMAScript features
             babelOptions: {
-                presets: ['@babel/preset-env'], // Use Babel preset for modern JavaScript
+                presets: ["@babel/preset-env"], // Use Babel preset for modern JavaScript
             },
         },
     },

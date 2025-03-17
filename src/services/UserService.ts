@@ -1,9 +1,9 @@
-import { Repository } from 'typeorm'
-import { User } from '../entity/User'
-import { UserData } from '../types'
-import createHttpError from 'http-errors'
-import bcrypt from 'bcrypt'
-import { Roles } from '../constants'
+import { Repository } from "typeorm"
+import { User } from "../entity/User"
+import { UserData } from "../types"
+import createHttpError from "http-errors"
+import bcrypt from "bcrypt"
+import { Roles } from "../constants"
 
 export class UserService {
     constructor(private userRepository: Repository<User>) {}
@@ -14,7 +14,7 @@ export class UserService {
         })
 
         if (user) {
-            const err = createHttpError(400, 'Email is already exists!')
+            const err = createHttpError(400, "Email is already exists!")
             throw err
         }
 
@@ -32,7 +32,7 @@ export class UserService {
         } catch {
             const error = createHttpError(
                 500,
-                'Failed to store the data in the database',
+                "Failed to store the data in the database",
             )
             throw error
         }
